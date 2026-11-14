@@ -88,20 +88,11 @@
             <nav class="hidden md:flex space-x-10 text-sm tracking-widest font-serif">
                 <a href="#concept" class="hover:text-tea-300 transition-colors py-2">用意の仕方</a>
                 <a href="#lineup" class="hover:text-tea-300 transition-colors py-2">銘茶一覧</a>
-                <a href="#brewing" class="hover:text-tea-300 transition-colors py-2">美味しい淹れ方</a>
                 <a href="#visit" class="hover:text-tea-300 transition-colors py-2">茶寮のご案内</a>
             </nav>
-
-            <!-- カートボタン -->
-            <div class="flex items-center space-x-4">
-                <button onclick="toggleCart()" class="relative p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="買い物かご">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-                    </svg>
-                    <span id="cart-badge" class="hidden absolute top-0 right-0 bg-gold text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-medium">0</span>
-                </button>
+            <div class="flex items-center">
                 <!-- モバイルメニューボタン -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="メニュー">
+                <button id="mobile-menu-btn" class="md:hidden p-2 rounded-lg hover:bg-white/10" aria-label="メニュー" aria-expanded="false" aria-controls="mobile-menu">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
                     </svg>
@@ -113,7 +104,6 @@
         <div id="mobile-menu" class="hidden md:hidden bg-tea-950/95 backdrop-blur-md text-white px-6 py-8 space-y-6 font-serif tracking-widest text-center border-t border-tea-800">
             <a href="#concept" class="block hover:text-tea-300" onclick="closeMobileMenu()">用意の仕方</a>
             <a href="#lineup" class="block hover:text-tea-300" onclick="closeMobileMenu()">銘茶一覧</a>
-            <a href="#brewing" class="block hover:text-tea-300" onclick="closeMobileMenu()">美味しい淹れ方</a>
             <a href="#visit" class="block hover:text-tea-300" onclick="closeMobileMenu()">茶寮のご案内</a>
         </div>
     </header>
@@ -132,10 +122,6 @@
         <!-- メインコピー（縦書き＋横書きの調和） -->
         <div class="relative z-10 max-w-6xl mx-auto px-6 w-full flex flex-col md:flex-row items-center justify-between text-white">
             <div class="md:order-2 mb-8 md:mb-0">
-                <div class="vertical-text font-serif text-3xl sm:text-4xl md:text-5xl tracking-[0.25em] leading-loose h-72 sm:h-80 md:h-96 flex flex-col justify-center">
-                    <p class="mb-4">一煎の雫に、</p>
-                    <p class="mt-8 text-tea-200">四季の風を聴く。</p>
-                </div>
             </div>
 
             <div class="md:order-1 max-w-md text-center md:text-left space-y-6">
@@ -229,86 +215,6 @@
         </div>
     </section>
 
-    <!-- インタラクティブ「美味しい淹れ方・湯温タイマー」セクション -->
-    <section id="brewing" class="py-24 sm:py-32 px-6 max-w-5xl mx-auto">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4 fade-up">
-            <span class="text-xs tracking-[0.25em] text-tea-600 font-medium">HOW TO BREW</span>
-            <h2 class="font-serif text-3xl sm:text-4xl text-tea-950">至福の一杯を淹れる</h2>
-            <p class="text-sm text-stone-600 leading-relaxed">
-                茶葉の種類によって最適な「お湯の温度」と「浸出時間」が異なります。<br class="hidden sm:inline">茶葉を選んで、香り高い一杯を淹れてみましょう。
-            </p>
-        </div>
-
-        <div class="bg-white rounded-3xl shadow-lg border border-tea-100 p-6 sm:p-12 fade-up">
-            <!-- 茶葉選択タブ -->
-            <div class="grid grid-cols-3 gap-3 sm:gap-6 mb-10">
-                <button onclick="selectBrewType('gyokuro')" id="brew-tab-gyokuro" class="brew-tab p-4 rounded-2xl border-2 border-tea-700 bg-tea-50 text-tea-900 font-serif text-center transition-all">
-                    <span class="block text-xs text-tea-600 mb-1">濃厚な甘み</span>
-                    <span class="text-base sm:text-lg font-semibold">玉露</span>
-                </button>
-                <button onclick="selectBrewType('sencha')" id="brew-tab-sencha" class="brew-tab p-4 rounded-2xl border border-tea-200 hover:border-tea-400 text-stone-600 font-serif text-center transition-all">
-                    <span class="block text-xs text-stone-400 mb-1">爽やかな渋み</span>
-                    <span class="text-base sm:text-lg font-semibold">煎茶</span>
-                </button>
-                <button onclick="selectBrewType('hojicha')" id="brew-tab-hojicha" class="brew-tab p-4 rounded-2xl border border-tea-200 hover:border-tea-400 text-stone-600 font-serif text-center transition-all">
-                    <span class="block text-xs text-stone-400 mb-1">香ばしい香り</span>
-                    <span class="text-base sm:text-lg font-semibold">ほうじ茶</span>
-                </button>
-            </div>
-
-            <!-- 淹れ方パラメータ＆タイマー -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-                <!-- 左側：レシピ詳細 -->
-                <div class="space-y-6">
-                    <h3 id="brew-title" class="font-serif text-2xl text-tea-900 border-b border-tea-100 pb-3">玉露（ぎょくろ）の淹れ方</h3>
-                    <div class="grid grid-cols-3 gap-4 text-center">
-                        <div class="bg-washi p-4 rounded-2xl">
-                            <span class="block text-xs text-stone-500 mb-1">茶葉の量</span>
-                            <span id="brew-leaf" class="font-serif text-xl text-tea-800 font-semibold">10g</span>
-                            <span class="block text-[11px] text-stone-400">（ティースプーン山盛り2杯）</span>
-                        </div>
-                        <div class="bg-washi p-4 rounded-2xl">
-                            <span class="block text-xs text-stone-500 mb-1">お湯の温度</span>
-                            <span id="brew-temp" class="font-serif text-xl text-tea-800 font-semibold">50〜60℃</span>
-                            <span class="block text-[11px] text-stone-400">（湯冷まし推奨）</span>
-                        </div>
-                        <div class="bg-washi p-4 rounded-2xl">
-                            <span class="block text-xs text-stone-500 mb-1">浸出時間</span>
-                            <span id="brew-time-label" class="font-serif text-xl text-tea-800 font-semibold">120秒</span>
-                            <span class="block text-[11px] text-stone-400">（じっくり待つ）</span>
-                        </div>
-                    </div>
-                    <p id="brew-desc" class="text-sm text-stone-600 leading-relaxed bg-tea-50/60 p-4 rounded-xl">
-                        沸騰したお湯を湯呑みに一度移して冷ますことで、テアニン（旨み成分）が引き出され、とろりとした甘みが楽しめます。最後の一滴まで注ぎ切るのがポイントです。
-                    </p>
-                </div>
-
-                <!-- 右側：インタラクティブ抽出タイマー -->
-                <div class="flex flex-col items-center justify-center bg-tea-950 text-white rounded-3xl p-8 relative overflow-hidden">
-                    <!-- 湯気アニメーションSVG -->
-                    <svg class="w-16 h-12 text-tea-300/40 mb-2" viewBox="0 0 60 40" fill="none">
-                        <path class="steam-line" d="M15 35 Q 10 20, 18 10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path class="steam-line" d="M30 38 Q 35 22, 28 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                        <path class="steam-line" d="M45 35 Q 40 20, 48 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-
-                    <span class="text-xs tracking-widest text-tea-300 mb-2 font-serif">BREWING TIMER</span>
-                    <div id="timer-display" class="font-serif text-5xl sm:text-6xl tracking-wider my-3 text-white">02:00</div>
-                    <p id="timer-status" class="text-xs text-tea-200/80 mb-6 h-4">準備ができたらタイマーを開始してください</p>
-
-                    <div class="flex space-x-4">
-                        <button id="timer-start-btn" onclick="toggleTimer()" class="px-7 py-2.5 rounded-full bg-tea-600 hover:bg-tea-500 text-white font-serif text-sm tracking-wider transition-all shadow-md">
-                            抽出開始
-                        </button>
-                        <button onclick="resetTimer()" class="px-5 py-2.5 rounded-full border border-tea-700 hover:bg-tea-900 text-tea-200 font-serif text-sm transition-all">
-                            リセット
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- 茶寮・店舗案内セクション -->
     <section id="visit" class="py-24 bg-tea-900 text-white">
         <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center fade-up">
@@ -320,7 +226,7 @@
                 </p>
                 <div class="space-y-3 text-sm text-tea-100 border-t border-tea-800 pt-6 font-light">
                     <p><span class="text-tea-400 inline-block w-24">所在地</span> 京都府宇治市宇治蓮華 12-4</p>
-                    <p><span class="text-tea-400 inline-block w-24">営業時間</span> 10:00 〜 18:00（茶寮ラストオーダー 17:15）</p>
+                    <p><span class="text-tea-400 inline-block w-24">営業時間</span> 10:00 〜 18:00(茶寮ラストオーダー 17:15)</p>
                     <p><span class="text-tea-400 inline-block w-24">定休日</span> 毎週水曜日</p>
                 </div>
             </div>
@@ -343,44 +249,12 @@
             <div class="flex space-x-8 text-xs tracking-wider">
                 <a href="#concept" class="hover:text-white transition-colors">用意の仕方</a>
                 <a href="#lineup" class="hover:text-white transition-colors">銘茶一覧</a>
-                <a href="#brewing" class="hover:text-white transition-colors">美味しい淹れ方</a>
                 <a href="#visit" class="hover:text-white transition-colors">店舗案内</a>
             </div>
             <p class="text-xs text-tea-600">&copy; 2026 SUIFUAN All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- カートドロワー（モーダル） -->
-    <div id="cart-modal" class="fixed inset-0 z-50 hidden">
-        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="toggleCart()"></div>
-        <div class="absolute right-0 top-0 h-full w-full max-w-md bg-washi shadow-2xl flex flex-col justify-between p-6 sm:p-8 transition-transform">
-            <div>
-                <div class="flex justify-between items-center border-b border-tea-200 pb-4 mb-6">
-                    <h3 class="font-serif text-xl text-tea-950">お買い物かご</h3>
-                    <button onclick="toggleCart()" class="p-2 text-stone-500 hover:text-tea-900 text-2xl leading-none">&times;</button>
-                </div>
-                <div id="cart-items" class="space-y-4 max-h-[60vh] overflow-y-auto pr-1">
-                    <!-- カート内の商品がここに表示されます -->
-                </div>
-            </div>
-
-            <div class="border-t border-tea-200 pt-6 space-y-4">
-                <div class="flex justify-between items-center font-serif">
-                    <span class="text-stone-600">合計金額（税込）</span>
-                    <span id="cart-total" class="text-2xl text-tea-950 font-semibold">¥0</span>
-                </div>
-                <button onclick="checkout()" class="w-full py-3.5 rounded-full bg-tea-800 hover:bg-tea-700 text-white font-serif tracking-widest transition-colors shadow-md">
-                    ご購入手続きへ進む
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- トースト通知（alertの代替） -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-tea-900 text-white px-6 py-3.5 rounded-2xl shadow-xl border border-tea-700 flex items-center space-x-3 text-sm font-serif">
-        <span class="w-2 h-2 rounded-full bg-gold"></span>
-        <span id="toast-message">カートに追加しました</span>
-    </div>
 
     <script>
         // 商品データ
@@ -426,10 +300,7 @@
                 image: 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&w=600&q=80'
             }
         ];
-
-        let cart = [];
-
-        // 商品一覧の描画
+// 商品一覧の描画
         function renderProducts(filter = 'all') {
             const grid = document.getElementById('product-grid');
             if (!grid) return;
@@ -461,9 +332,6 @@
                     </div>
                     <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-tea-50">
                         <span class="font-serif text-lg text-tea-900 font-medium">¥${product.price.toLocaleString()}</span>
-                        <button onclick="addToCart(${product.id})" class="px-4 py-2 rounded-full bg-tea-800 hover:bg-tea-700 text-white text-xs font-serif tracking-wider transition-colors">
-                            かごに入れる
-                        </button>
                     </div>
                 `;
                 grid.appendChild(card);
@@ -482,204 +350,6 @@
             renderProducts(category);
         }
 
-        // カート機能
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.qty += 1;
-            } else {
-                cart.push({ ...product, qty: 1 });
-            }
-            updateCartUI();
-            showToast(`「${product.name}」をかごに追加しました`);
-        }
-
-        function updateQty(productId, delta) {
-            const item = cart.find(i => i.id === productId);
-            if (!item) return;
-            item.qty += delta;
-            if (item.qty <= 0) {
-                cart = cart.filter(i => i.id !== productId);
-            }
-            updateCartUI();
-        }
-
-        function updateCartUI() {
-            const badge = document.getElementById('cart-badge');
-            const itemsContainer = document.getElementById('cart-items');
-            const totalEl = document.getElementById('cart-total');
-
-            const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-
-            if (badge) {
-                if (totalQty > 0) {
-                    badge.textContent = totalQty;
-                    badge.classList.remove('hidden');
-                } else {
-                    badge.classList.add('hidden');
-                }
-            }
-
-            if (totalEl) {
-                totalEl.textContent = `¥${totalPrice.toLocaleString()}`;
-            }
-
-            if (!itemsContainer) return;
-
-            if (cart.length === 0) {
-                itemsContainer.innerHTML = '<p class="text-center text-stone-400 text-sm py-12 font-serif">お買い物かごに商品は入っていません。</p>';
-                return;
-            }
-
-            itemsContainer.innerHTML = cart.map(item => `
-                <div class="flex items-center justify-between bg-white p-3.5 rounded-2xl border border-tea-100">
-                    <div>
-                        <h4 class="font-serif text-sm text-tea-950 font-medium">${item.name}</h4>
-                        <p class="text-xs text-stone-500">¥${item.price.toLocaleString()}</p>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <button onclick="updateQty(${item.id}, -1)" class="w-7 h-7 rounded-full border border-tea-200 text-tea-800 hover:bg-tea-50">-</button>
-                        <span class="text-sm font-medium w-5 text-center">${item.qty}</span>
-                        <button onclick="updateQty(${item.id}, 1)" class="w-7 h-7 rounded-full border border-tea-200 text-tea-800 hover:bg-tea-50">+</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function toggleCart() {
-            const modal = document.getElementById('cart-modal');
-            if (modal) modal.classList.toggle('hidden');
-        }
-
-        function checkout() {
-            if (cart.length === 0) {
-                showToast('お買い物かごが空です');
-                return;
-            }
-            cart = [];
-            updateCartUI();
-            toggleCart();
-            showToast('ご注文ありがとうございます。心を込めて発送準備いたします。');
-        }
-
-        // トースト通知表示
-        let toastTimeout;
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-message');
-            if (!toast || !toastMsg) return;
-            toastMsg.textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3200);
-        }
-
-        // 美味しい淹れ方レシピ＆タイマーロジック
-        const brewRecipes = {
-            gyokuro: {
-                title: '玉露（ぎょくろ）の淹れ方',
-                leaf: '10g',
-                temp: '50〜60℃',
-                timeLabel: '120秒',
-                seconds: 120,
-                desc: '沸騰したお湯を湯呑みに一度移して冷ますことで、テアニン（旨み成分）が引き出され、とろりとした甘みが楽しめます。最後の一滴まで注ぎ切るのがポイントです。'
-            },
-            sencha: {
-                title: '煎茶（せんちゃ）の淹れ方',
-                leaf: '6g',
-                temp: '70〜80℃',
-                timeLabel: '60秒',
-                seconds: 60,
-                desc: '一呼吸おいたお湯を注ぎ、茶葉がゆっくり開くのを1分ほど待ちます。爽やかな香りと、程よい渋み・甘みのバランスが絶妙な一杯になります。'
-            },
-            hojicha: {
-                title: 'ほうじ茶の淹れ方',
-                leaf: '6g',
-                temp: '95〜100℃',
-                timeLabel: '30秒',
-                seconds: 30,
-                desc: '沸騰したての熱湯を一気に注ぐことで、香ばしい焙煎香が華やかに立ち昇ります。短時間でさっと抽出するのが雑味を出さないコツです。'
-            }
-        };
-
-        let currentBrewKey = 'gyokuro';
-        let remainingSeconds = 120;
-        let timerInterval = null;
-
-        function selectBrewType(type) {
-            currentBrewKey = type;
-            const recipe = brewRecipes[type];
-            if (!recipe) return;
-
-            // タブのスタイル更新
-            ['gyokuro', 'sencha', 'hojicha'].forEach(key => {
-                const tab = document.getElementById(`brew-tab-${key}`);
-                if (!tab) return;
-                if (key === type) {
-                    tab.className = 'brew-tab p-4 rounded-2xl border-2 border-tea-700 bg-tea-50 text-tea-900 font-serif text-center transition-all';
-                } else {
-                    tab.className = 'brew-tab p-4 rounded-2xl border border-tea-200 hover:border-tea-400 text-stone-600 font-serif text-center transition-all';
-                }
-            });
-
-            document.getElementById('brew-title').textContent = recipe.title;
-            document.getElementById('brew-leaf').textContent = recipe.leaf;
-            document.getElementById('brew-temp').textContent = recipe.temp;
-            document.getElementById('brew-time-label').textContent = recipe.timeLabel;
-            document.getElementById('brew-desc').textContent = recipe.desc;
-
-            resetTimer();
-        }
-
-        function formatTime(sec) {
-            const m = String(Math.floor(sec / 60)).padStart(2, '0');
-            const s = String(sec % 60).padStart(2, '0');
-            return `${m}:${s}`;
-        }
-
-        function toggleTimer() {
-            const btn = document.getElementById('timer-start-btn');
-            const status = document.getElementById('timer-status');
-
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                btn.textContent = '再開する';
-                status.textContent = '一時停止中';
-            } else {
-                if (remainingSeconds <= 0) {
-                    remainingSeconds = brewRecipes[currentBrewKey].seconds;
-                }
-                btn.textContent = '一時停止';
-                status.textContent = '茶葉がゆっくりと開いています...';
-                timerInterval = setInterval(() => {
-                    remainingSeconds--;
-                    document.getElementById('timer-display').textContent = formatTime(remainingSeconds);
-
-                    if (remainingSeconds <= 0) {
-                        clearInterval(timerInterval);
-                        timerInterval = null;
-                        btn.textContent = '抽出開始';
-                        status.textContent = '飲み頃です。最後の一滴までお注ぎください。';
-                        showToast('お茶が美味しく抽出されました！');
-                    }
-                }, 1000);
-            }
-        }
-
-        function resetTimer() {
-            clearInterval(timerInterval);
-            timerInterval = null;
-            remainingSeconds = brewRecipes[currentBrewKey].seconds;
-            document.getElementById('timer-display').textContent = formatTime(remainingSeconds);
-            document.getElementById('timer-start-btn').textContent = '抽出開始';
-            document.getElementById('timer-status').textContent = '準備ができたらタイマーを開始してください';
-        }
 
         // スクロール時のヘッダー背景変化 & フェードイン演出
         window.addEventListener('scroll', () => {
@@ -698,7 +368,11 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         if (mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
-                document.getElementById('mobile-menu').classList.toggle('hidden');
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu) return;
+                const isOpening = mobileMenu.classList.contains('hidden');
+                mobileMenu.classList.toggle('hidden');
+                mobileMenuBtn.setAttribute('aria-expanded', String(isOpening));
             });
         }
         function closeMobileMenu() {
@@ -720,7 +394,6 @@
         // 初期化
         window.onload = () => {
             renderProducts();
-            updateCartUI();
             const heroBg = document.getElementById('hero-bg');
             if (heroBg) heroBg.classList.remove('scale-105');
         };
